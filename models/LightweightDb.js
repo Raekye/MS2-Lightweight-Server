@@ -1,4 +1,5 @@
 var fs = require('fs');
+var crypto = require('crypto');
 
 module.exports = function LightweightDb(filepath) {
 	var self = this;
@@ -15,6 +16,7 @@ module.exports = function LightweightDb(filepath) {
 
 	function getUserByUsername(username) {
 		for (var i = 0; i < self.users.length; i++) {
+			console.log(self.users[i]);
 			if (self.users[i].username.toLowerCase() == username.toLowerCase()) {
 				return self.users[i];
 			}
