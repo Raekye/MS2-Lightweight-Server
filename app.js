@@ -4,6 +4,8 @@ var path = require('path');
 
 var routes = require('./routes');
 var config = require('./config');
+var LightweightDb = require('./models/LightweightDb');
+var db = new LightweightDb('./minecraft/users.json');
 
 var app = express();
 
@@ -17,6 +19,8 @@ app.use(express.session());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
-routes.init(app);
+db.init(function () {
+	routes.init(app, db);
 
-express().use(config.local.domain, app).listen(app.get('port'));
+	express().use(express.vhost(config.local.domain, app)).listen(app.get('port'));
+});

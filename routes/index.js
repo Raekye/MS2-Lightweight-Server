@@ -1,5 +1,5 @@
-module.exports.init = function (app) {
-	require('./authentication').init(app);
-	require('./game').init(app);
-	require('./textures').init(app);
+module.exports.init = function (app, db) {
+	require('./authentication').init(app, db);
+	require('./game').init(app, db);
+	require('./textures').init(app, db);
 };

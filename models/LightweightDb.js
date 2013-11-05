@@ -64,6 +64,7 @@ module.exports = function LightweightDb(filepath) {
 		function generateUUIDs(list, callback) {
 			if (list.length == 0) {
 				callback();
+				return;
 			}
 			var user = list.pop();
 			if (user.uuid) {
@@ -137,8 +138,13 @@ module.exports = function LightweightDb(filepath) {
 
 	this.verifyUser = function (username, accessToken, uuid, callback) {
 		var user = getUserByUsername(username);
+		if (!user) {
+			callback(false);
+			return;
+		}
 		if (user.uuid != uuid) {
 			callback(false);
+			return;
 		}
 		var found = false;
 		for (var i = 0; i < user.tokens.length; i++) {
@@ -164,6 +170,6 @@ module.exports = function LightweightDb(filepath) {
 			} else {
 				callback(buf.toString('hex'));
 			}
-		}
+		});
 	};
 }
