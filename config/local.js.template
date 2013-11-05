@@ -1,3 +1,4 @@
 module.exports = {
-	'COOKIE_SECRET': '123'
+	'COOKIE_SECRET': '123',
+	'domain': 'example.com';
 };

@@ -5,10 +5,10 @@ module.exports.init = function (app, db) {
 	var users = {};
 
 	function joinserver(req, res) {
-		var username = request.query.user;
+		var username = req.query.user;
 		// of form token:accessToken:UUID
-		var sessionId = request.query.sessionId.split(':');
-		var serverId = request.query.serverId;
+		var sessionId = req.query.sessionId.split(':');
+		var serverId = req.query.serverId;
 
 		db.verifyUser(username, sessionId[1], sessionId[2], function (verified) {
 			if (verified) {
@@ -21,8 +21,8 @@ module.exports.init = function (app, db) {
 	}
 
 	function checkserver(req, res) {
-		var username = request.query.user;
-		var serverId = request.query.serverId;
+		var username = req.query.user;
+		var serverId = req.query.serverId;
 
 		if (users[username] == serverId) {
 			res.end('YES');

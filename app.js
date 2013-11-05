@@ -7,7 +7,7 @@ var config = require('./config');
 
 var app = express();
 
-app.set('port', process.env.PORT || 80);
+app.set('port', process.env.PORT || 9010);
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.compress());
@@ -19,6 +19,4 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 routes.init(app);
 
-http.createServer(app).listen(app.get('port'), function () {
-	console.log('MS2 Lightweight Server listening on port ' + app.get('port'));
-});
+express().use(config.local.domain, app).listen(app.get('port'));
